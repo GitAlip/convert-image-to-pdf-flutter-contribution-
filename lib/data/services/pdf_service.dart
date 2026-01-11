@@ -4,7 +4,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfService {
-  Future<Uint8List> generatePdf(List<File> images) async {
+  Future<Uint8List> generatePdf(List<File> images, PdfPageFormat format) async {
     final pdf = pw.Document();
     
     for (var imageFile in images) {
@@ -13,7 +13,7 @@ class PdfService {
 
       pdf.addPage(
         pw.Page(
-          pageFormat: PdfPageFormat.a4,
+          pageFormat: format,
           build: (pw.Context context) {
             return pw.Center(
               child: pw.Image(

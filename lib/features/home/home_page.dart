@@ -48,7 +48,17 @@ class _HomePageState extends State<HomePage> {
                   context,
                   label: 'Gallery',
                   iconPath: 'lib/assets/image-file.svg',
-                  onTap: _controller.pickImages,
+                  onTap: () async {
+                    try {
+                      await _controller.pickImages();
+                    } catch (e) {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Failed to pick images: $e')),
+                        );
+                      }
+                    }
+                  },
                 ),
                 _buildActionButton(
                   context,
@@ -112,12 +122,19 @@ class _HomePageState extends State<HomePage> {
                           Positioned(
                             top: 4,
                             right: 4,
-                            child: GestureDetector(
-                              onTap: () => _controller.removeImage(index),
-                              child: const CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Colors.red,
-                                child: Icon(Icons.close, size: 16, color: Colors.white),
+                            child: Tooltip(
+                              message: "Remove image",
+                              child: Semantics(
+                                label: "Remove image",
+                                button: true,
+                                child: GestureDetector(
+                                  onTap: () => _controller.removeImage(index),
+                                  child: const CircleAvatar(
+                                    radius: 12,
+                                    backgroundColor: Colors.red,
+                                    child: Icon(Icons.close, size: 16, color: Colors.white),
+                                  ),
+                                ),
                               ),
                             ),
                           )

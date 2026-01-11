@@ -12,10 +12,15 @@ class HomeController extends ChangeNotifier {
   bool get hasImages => _selectedImages.isNotEmpty;
 
   Future<void> pickImages() async {
-    final List<XFile> images = await _mediaService.pickImages();
-    if (images.isNotEmpty) {
-      _selectedImages.addAll(images.map((x) => File(x.path)));
-      notifyListeners();
+    try {
+      final List<XFile> images = await _mediaService.pickImages();
+      if (images.isNotEmpty) {
+        _selectedImages.addAll(images.map((x) => File(x.path)));
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Error picking images: $e');
+      // Here you could set an error state to show a Snackbar in the UI
     }
   }
 

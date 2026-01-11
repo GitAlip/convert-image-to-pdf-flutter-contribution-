@@ -17,10 +17,10 @@ class PdfPreviewPage extends StatelessWidget {
         title: const Text("PDF Preview"),
       ),
       body: PdfPreview(
-        build: (format) => _pdfService.generatePdf(images),
+        build: (format) => _pdfService.generatePdf(images, format),
         canDebug: false,
-        canChangeOrientation: false,
-        canChangePageFormat: false, // Simplifies the UI
+        canChangeOrientation: true,
+        canChangePageFormat: true,
         allowPrinting: true,
         allowSharing: true,
         initialPageFormat: PdfPageFormat.a4,

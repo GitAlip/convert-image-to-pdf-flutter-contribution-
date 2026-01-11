@@ -8,8 +8,7 @@ class MediaService {
       final List<XFile> images = await _picker.pickMultiImage();
       return images;
     } catch (e) {
-      // In a real app, log this error
-      return [];
+      throw Exception('Failed to pick images: $e');
     }
   }
 }

@@ -45,5 +45,4 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - lib/github/
     - lib/assets/
